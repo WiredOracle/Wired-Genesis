@@ -1,7 +1,6 @@
-# Wired-Genesis
-Wired Genesis - An esoteric P2P Chatroom &amp; Library
+# Wired Genesis - An esoteric P2P Chatroom &amp; Library
 
-DISCUSSIONS pertaining to cyber-esotericism
+* DISCUSSIONS pertaining to cyber-esotericism, symbolic avante-garde literature & cyberpunk media
 * Includes library implementation
 * P2P Chatroom architecture using Qt framework
 * A cohesive knowledge base akin to logseq which you are able to send to users in chatrooms, encourages more introspective insights to be expressed
