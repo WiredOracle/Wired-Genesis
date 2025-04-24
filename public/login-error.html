@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>signal lost</title>
+  <style>
+    body {
+      margin: 0;
+      background: black;
+      color: #ccc;
+      font-family: 'Courier New', Courier, monospace;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      color: cyan;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      color: #888;
+      margin-bottom: 2rem;
+    }
+
+    .gif-container img {
+      width: 60%;
+      max-width: 500px;
+      margin-bottom: 1.5rem;
+    }
+
+    .bottom-text {
+      font-size: 1rem;
+      color: #777;
+    }
+
+    audio {
+      display: none; /* hides audio controls, still plays */
+    }
+  </style>
+</head>
+<body>
+  <!-- main existential warning -->
+  <h1>the current does not reach this node.</h1>
+
+  <!-- a softer second whisper from the void -->
+  <h2>your signal is lost in the void between aeons.</h2>
+
+  <!-- animated aesthetic response -->
+  <div class="gif-container">
+    <img id="errorGif" src="" alt="error visual" />
+  </div>
+
+  <!-- footer phrase for the error identity -->
+  <p class="bottom-text">error 404: self not found.</p>
+
+  <!-- background track loops forever -->
+  <audio autoplay loop>
+    <source src="/8bitduvet.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    // list of gifs stored in /public/
+    const gifs = [
+      "r-plus-seven.jpg",
+      "identity-error.gif",
+      "space-error.gif",
+      "dynamic-error.gif",
+      "dissociate-error.gif",
+      "ascend-error.gif",
+      "gnostic-error.gif",
+      "ego-error.gif",
+      "staring-error.gif",
+      "wired-error.gif",
+      "cyberspace-error.gif"
+    ];
+
+    // picks one at random
+    const chosen = gifs[Math.floor(Math.random() * gifs.length)];
+
+    // this updates the <img> to display the random gif
+    document.getElementById("errorGif").src = "/" + chosen;
+  </script>
+</body>
+</html>
