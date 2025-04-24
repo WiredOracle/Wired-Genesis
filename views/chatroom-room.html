@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chatroom</title>
+  <link rel="stylesheet" href="chatroom-room.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="topnav">
+        <li><a href="#">Library</a></li>
+        <li><a href="#" class="active">Chatroom</a></li>
+        <li><a href="#">Encyclopedia</a></li>
+        <li><a href="#">User Profile</a></li>
+        <li><a href="#" id="settings">Settings ⚙️</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="room-container">
+    <!-- left side: main chat area -->
+    <section class="chat-area">
+      <div class="chat-header">
+        <!-- small visual icon for aesthetic branding -->
+        <img src="coplandOS.png" alt="chat icon" class="chat-icon">
+        <div class="chat-welcome">
+          <!-- room name goes here dynamically -->
+          <strong>WELCOME TO <span id="roomLabel"></span></strong><br/>
+        </div>
+      </div>
+
+      <!-- this is the actual chat log window -->
+      <div class="chat-log" id="chatLog">
+        <p>"No matter where you go, everyone's connected" ~ Lain Iwakura</p>
+      </div>
+
+      <!-- message input + send button -->
+      <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="send a message…" />
+        <button id="sendBtn">send</button>
+      </div>
+    </section>
+
+    <!-- right side: room details + user list -->
+    <aside class="sidebar">
+      <!-- shows room name below nav -->
+      <h2 class="room-title">chatroom: <span id="roomNameDisplay"></span></h2>
+
+      <!-- user list display -->
+      <div class="user-box">
+        <p><strong>current active users (4 members):</strong></p>
+        <p id="userList">eclipse, tsuki, lain, Alice_42</p>
+      </div>
+
+      <!-- optional notes input -->
+      <textarea placeholder="note…" class="note-box"></textarea>
+
+      <!-- return link to chatroom menu -->
+      <a href="chatroom.html" class="back-btn">go back &lt;</a>
+    </aside>
+  </main>
+
+  <script>
+    // extract room name from url (e.g. /chatroom/cyberia)
+    const roomName = window.location.pathname.split("/").pop();
+
+    // insert room name into both places on the page
+    document.getElementById("roomLabel").textContent = "/" + roomName + "/";
+    document.getElementById("roomNameDisplay").textContent = "/" + roomName + "/";
+  </script>
+</body>
+</html>

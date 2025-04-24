@@ -1,0 +1,120 @@
+<!-- room.ejs --><!-- updated for socket messaging + user list + comments -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>chatroom - <%= room %></title>
+  <link rel="stylesheet" href="/chatroom-room.css" />
+</head>
+<body>
+  <header>
+    <nav>
+      <ul class="topnav">
+        <li><a href="/">Library</a></li>
+        <li><a href="/chatroom" class="active">Chatroom</a></li>
+        <li><a href="#">Encyclopedia</a></li>
+        <li><a href="#">User Profile</a></li>
+        <li><a href="#" id="settings">Settings ⚙️</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="room-container">
+    <!-- left side: chat log and input -->
+    <section class="chat-area">
+      <div class="chat-header">
+        <img src="/coplandOS.png" alt="chat icon" class="chat-icon" />
+        <div class="chat-welcome">
+          <strong>welcome to /<%= room %>/?</strong><br />
+          [member: <%= username %>]
+        </div>
+      </div>
+
+      <!-- log of messages -->
+      <div class="chat-log" id="chatLog"></div>
+
+      <!-- input box and send button -->
+      <div class="chat-input-area">
+        <input type="text" id="chatInput" placeholder="send a message…" />
+        <button id="sendBtn">send</button>
+      </div>
+    </section>
+
+    <!-- right panel: list of users in room -->
+    <aside class="sidebar">
+      <h2 class="room-title">chatroom: /<%= room %>/</h2>
+
+      <!-- displays number and names of users -->
+      <div class="user-box">
+        <p><strong>current active users (<span id="userCount">0</span>):</strong></p>
+        <ul id="userList"></ul>
+      </div>
+
+      <!-- notes or back -->
+      <textarea placeholder="note…" class="note-box"></textarea>
+      <a href="/chatroom" class="back-btn" id="leaveBtn">go back &lt;</a>
+    </aside>
+  </main>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const socket = io();
+
+    const room = "<%= room %>";
+    const username = "<%= username %>";
+
+    const chatLog = document.getElementById("chatLog");
+    const chatInput = document.getElementById("chatInput");
+    const sendBtn = document.getElementById("sendBtn");
+    const userCountEl = document.getElementById("userCount");
+    const userListEl = document.getElementById("userList");
+
+    // join the current room on load
+    socket.emit("joinRoom", { room, username });
+
+    // listen for new messages from other users
+    socket.on("message", ({ username, message }) => {
+      const entry = document.createElement("p");
+      entry.innerHTML = `<strong>${username}:</strong> ${message}`;
+      chatLog.appendChild(entry);
+      chatLog.scrollTop = chatLog.scrollHeight; // always scroll to bottom
+    });
+
+    // update the number and list of users in this room
+    socket.on("roomUsers", ({ users }) => {
+      userCountEl.textContent = users.length;
+      userListEl.innerHTML = "";
+      users.forEach(u => {
+        const li = document.createElement("li");
+        li.textContent = u;
+        userListEl.appendChild(li);
+      });
+    });
+
+    // sends the typed message
+    sendBtn.addEventListener("click", () => {
+      const msg = chatInput.value.trim();
+      if (msg !== "") {
+        socket.emit("chatMessage", { room, username, message: msg });
+        chatInput.value = "";
+      }
+    });
+
+    // also allow enter key to send
+    chatInput.addEventListener("keypress", (e) => {
+      if (e.key === "Enter") sendBtn.click();
+    });
+
+    // notify server when leaving
+    document.getElementById("leaveBtn").addEventListener("click", () => {
+      socket.emit("leaveRoom", { room, username });
+    });
+
+    // clean up on actual unload (closing tab, refresh, etc)
+    window.addEventListener("beforeunload", () => {
+      socket.emit("leaveRoom", { room, username });
+    });
+  </script>
+</body>
+</html>
