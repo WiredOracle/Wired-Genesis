@@ -1,20 +1,19 @@
-===============================
+================================
 WIRED GENESIS — README DOCUMENT
-===============================
-
+================================
 Author: Dion Berish
 Candidate Number: 4038
 Project Title: Wired Genesis - An esoteric Library & Chatroom
 Submission: NEA Project - Computer Science
 Platform: Node.js + Express + SQLite
-Theme: Techno-esotericism | Real-time Chat | A Hub for Research
+Theme: Techno-esotericism with Minimalist Stylization | Real-time Chat | A Hub for Research and Knowledge
 
 -------------------------------------
 WHAT THIS PROJECT IS:
 -------------------------------------
-Wired Genesis is an open-source live web-based chatroom and esoteric-themed library where users can interact, customize their profiles, and upload customized content and share educational PDF documents and additional resources which may serve to be useful in the analysis of culture, information and research. Every account has a profile page with custom display name, description, visual theme, and uploaded image support. The chatroom uses socket.io to provide real-time messaging between users. If you ever lost that feeling where going to a chatroom felt like going to an empty cyber mall that was prevalent within 2000s software, this software will be able to convey that lost feeling once again.
+Wired Genesis is a live web-based chat room and esoteric-themed library that is open-source in which users can communicate, customize their profiles, and upload custom content and share educational PDF documents and other materials which can be used to be of use when examining culture, information and research. Every account has a profile page with custom display name, description, visual theme, and uploaded image support. The chatroom also uses socket.io to facilitate the real-time exchange of messages between individuals. If ever, you lost the feeling that accessing a chatroom was tantamount to entering an abandoned cyber mall that was once common in 2000s software, this piece of software shall be capable of conveying that feeling of loss afresh.
 
-The project's purpose is to preserve knowledge, facilitate meaningful discourse, and serve as a dynamic hub for innovative research and connections in obscure yet ever-evolving fields, ideas that might otherwise be lost to time. It aspires to be a living archive, a reservoir of information, and a platform for uncovering deeper truths through collaboration and intellectual exploration. Not only impacting the evolution of research and memetic information, but also retroactively looking back at what was once glanced over superficially, and taking a more deeper look into it, investigating and securitizing the nuances in the phenomenological and metaphysical nature of information, looking at it non-linearly by examining both the past and future simultaneously, perhaps of an alternate reality, a retro futuristic depiction of the future, which is portrayed in artistic and aesthetic conceptions of a particular epoch such as Vaporwave, Y2K and Frutiger Aero.
+The project's purpose is to facilitate knowledge retention, foster meaningful discussion, and serve as an ongoing site of new research and cross-referencing in esoteric but ever-evolving topics, ideas which might otherwise be lost to history. It aims to serve as a living archive, a reservoir of information, and a clearinghouse for the uncovering of higher truths through association and intellectual exploration. Not just affecting the formation of research and memetic wisdom, but also reflecting back on what was once observed in a cursory manner, and analyzing it in more depth, investigating and securitizing the nuances of the phenomenological and metaphysical framework of information, seeing it in a non-linear fashion by observing past and future in tandem, perhaps of another realm, a retro futuristic representation of the future, which is visualized in artwork and aesthetic conceptions of a given era such as Vaporwave, Y2K and Frutiger Aero.
 
 -------------------------------------
 SOFTWARE REQUIREMENTS:
@@ -47,8 +46,8 @@ SETUP INSTRUCTIONS:
 1. Unzip the project folder.
 2. Open a terminal and navigate to the root directory of the project.
 3. Run `npm install` to install all dependencies.
-4. Start the server using `node app.js`.
-5. Open a browser and go to `http://localhost:3000` to use the site.
+4. Start the server with `node app.js`.
+5. Open a browser and go to `http://localhost:3000` to view the site.
 
 -------------------------------------
 USER INFO FOR TESTING:
@@ -57,50 +56,50 @@ Test Account:
 - Username: lain
 - Password: system
 
-You can also create a new account by going to `http://localhost:3000/register`.
+You may also create a new account by going to `http://localhost:3000/register`.
 
 -------------------------------------
 HOW TO USE / CONTROLS:
 -------------------------------------
-- Use the top navigation bar to access Library, Chatroom, Encyclopedia, Profile, and Settings pages.
+- Utilize the navigation bar at the top to view Library, Chatroom, Encyclopedia, Profile, and Settings pages.
 - The Chatroom uses socket.io for real-time message broadcasting.
-- The Settings page allows users to change display name (alias), theme (background), description, directory, avatar, and upload a max of 10 images.
-- The Profile page displays the user's information in a theme-based background, centered container box with a dark border for enhanced visibility.
+- The Settings page allows users to edit display name (alias), theme (background), description, directory, avatar, and upload a maximum of 10 photos.
+- The Profile page displays the user information in a theme-dependent background, dark boundary container box centered to enhance readability.
 
 -------------------------------------
 FILE STRUCTURE OVERVIEW:
 -------------------------------------
-- `app.js` – Server file containing all routes and socket.io logic
+- `app.js` – Server file with all routes and socket.io logic
 - `public/` – Static frontend files
-- `uploads/` – User uploaded profile images
+- `uploads/` – User-uploaded profile images
 - `backgrounds/` – Theme background images (e.g. `vaporwave.jpg`, `cybercore.png`, `aero.png`)
-- `views/` – EJS templates for rendering HTML pages
-- `users.db` – SQLite database storing user credentials and preferences
+- `views/` – EJS templates used to render HTML pages
+- `users.db` – SQLite database of user credentials and preferences
 
 -------------------------------------
 SECURITY MEASURES:
 -------------------------------------
-- Passwords are hashed by bcrypt before storage.
-- User sessions are managed securely with express-session and cookies.
-- Images uploaded are stored with randomly named filenames to avoid collisions.
+- Passwords are hashed using bcrypt before storage.
+- User sessions are handled securely with express-session and cookies.
+- Uploaded images are stored with randomly named filenames to avoid filename collisions.
 - Maximum 10 images per user for profile gallery.
-- Invalid login attempts are routed to themed error page.
+- Redirect failed login attempts to themed error page.
 
 -------------------------------------
 VALIDATIONS:
 -------------------------------------
--Username can have up to 32 characters to prevent excessively large data being stored
--Password can have up to 64 characters to prevent excessively large data being stored
--Patched SQL injection for both the Login input fields and Register input fields
--Password also needs a maximum of 8 characters
+-Username should not be more than 32 characters so as to prevent too large data storage
+-Password should not be more than 64 characters so as to prevent too large data storage
+-Patched SQL injection on Login input fields and Register input fields
+-Password should also not any less than 8 characters
 
 -------------------------------------
 ADDITIONAL NOTES:
 -------------------------------------
-- Background themes are automatically applied on the Profile page based on the user's selected theme in Settings.
-- All images and user information are stored between sessions with SQLite.
-- The UI uses monospace fonts and dark-themed cyber-inspired styling.
+- Background themes are automatically applied on the Profile page based on the theme selected by the user in Settings.
+- User data and pictures are stored across sessions with SQLite.
+- UI includes monospace fonts and dark-mode cyber-inspired appearance.
 
 ==============================
-    END OF README DOCUMENT
+   END OF README DOCUMENT
 ==============================
