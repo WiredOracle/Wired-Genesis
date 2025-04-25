@@ -3,7 +3,6 @@ WIRED GENESIS — README DOCUMENT
 ================================
 Candidate Number: 4038
 Project Title: Wired Genesis - An esoteric Library & Chatroom
-Submission: NEA Project - Computer Science
 Platform: Node.js + Express + SQLite
 Theme: Techno-esotericism with Minimalist Stylization | Real-time Chat | A Hub for Research and Knowledge
 
@@ -114,6 +113,8 @@ ADDITIONAL NOTES:
 - Background themes are automatically applied on the Profile page based on the theme selected by the user in Settings.
 - User data and pictures are stored across sessions with SQLite.
 - UI includes monospace fonts and dark-mode cyber-inspired appearance.
+- Encyclopedia webpage is not ready yet, however be wary that this is not entirely completed within my standards, but enough to be published. 
+I can definitely adapt more tweaks. I'll add it soon but it isn't the primary core of the website anyways, so it's not a major sacrifice.
 
 ==============================
    END OF README DOCUMENT
