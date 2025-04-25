@@ -27,7 +27,7 @@ Run using:
 node app.js
 
 Open the browser:
-http://localhost:3000
+http://localhost:3000/register
 
 -------------------------------------
 SOFTWARE REQUIREMENTS:
