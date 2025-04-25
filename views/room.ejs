@@ -68,6 +68,9 @@
 
     const room = "<%= room %>";
     const username = "<%= username %>";
+    const alias = "<%= alias %>"; // grab the alias
+
+    socket.emit("joinRoom", { room, username, alias });
 
     const chatLog = document.getElementById("chatLog");
     const chatInput = document.getElementById("chatInput");
@@ -79,12 +82,13 @@
     socket.emit("joinRoom", { room, username });
 
     // listen for new messages from other users
-    socket.on("message", ({ username, message }) => {
+    socket.on("message", ({ username, alias, message }) => {
       const entry = document.createElement("p");
-      entry.innerHTML = `<strong>${username}:</strong> ${message}`;
+      entry.innerHTML = `<strong><a href="/user/${username}" style="color:cyan;">${alias}</a></strong>: ${message}`;
       chatLog.appendChild(entry);
-      chatLog.scrollTop = chatLog.scrollHeight; // always scroll to bottom
+      chatLog.scrollTop = chatLog.scrollHeight; // always scroll to the bottom
     });
+
 
     // update the number and list of users in this room
     socket.on("roomUsers", ({ users }) => {
@@ -92,7 +96,7 @@
       userListEl.innerHTML = "";
       users.forEach(u => {
         const li = document.createElement("li");
-        li.textContent = u;
+        li.innerHTML = `<a href="/profile?user=${encodeURIComponent(u)}">${u}</a>`;
         userListEl.appendChild(li);
       });
     });
@@ -101,7 +105,7 @@
     sendBtn.addEventListener("click", () => {
       const msg = chatInput.value.trim();
       if (msg !== "") {
-        socket.emit("chatMessage", { room, username, message: msg });
+        socket.emit("chatMessage", { room, username, alias, message: msg });
         chatInput.value = "";
       }
     });

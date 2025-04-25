@@ -80,18 +80,29 @@ app.get('/chatroom', (req, res) => {
 
 // dynamic route per room
 app.get('/chatroom/:room', (req, res) => {
-  if (!req.session.username) {
-    return res.redirect('/login');  // again, guard route
-  }
+  if (!req.session.username) return res.redirect('/login'); // again, guard route
 
   const roomName = req.params.room;
+  const username = req.session.username;
 
-  res.render('room', {
-    username: req.session.username,
-    room: roomName,
-    userCount: roomUsers[roomName] ? roomUsers[roomName].size : 0  // could crash if room doesn't exist tho
+  // fetch alias from user_settings
+  db.get('SELECT alias FROM user_settings WHERE username = ?', [username], (err, row) => {
+    if (err || !row) {
+      console.error('alias fetch error:', err);
+      return res.status(500).send('server error');
+    }
+
+    const alias = row.alias || username;
+
+    res.render('room', {
+      username,         // still send original username for identification
+      alias,            // used for display only
+      room: roomName,
+      userCount: roomUsers[roomName]?.size || 0 // could crash if room doesn't exist tho
+    });
   });
 });
+
 
 // === LIBRARY SYSTEM ===
 
@@ -253,40 +264,69 @@ app.post('/remove-image', (req, res) => {
 
 // defines the GET route for the user profile page
 app.get('/profile', (req, res) => {
-  // not logged in? boot them to login
-  if (!req.session.username) return res.redirect('/login');
-
-  const uname = req.session.username; // grab logged-in username from session
-
-  // get all the saved settings for the current user
-  db.get('SELECT * FROM user_settings WHERE username = ?', [uname], (err, row) => {
-    if (err) {
-      // database stopped working
-      console.error('profile lookup error:', err);
-      return res.status(500).send('server error'); // basic error return
-    }
-
-    // theme to background file mapping
-    const themeFileMap = {
+    const targetUser = req.query.user || req.session.username; // grab logged-in username from session
+  
+    // get all the saved settings for the current user
+    db.get('SELECT * FROM user_settings WHERE username = ?', [targetUser], (err, row) => {
+      if (err) {
+        // database stopped working
+        console.error('profile error:', err);
+        return res.status(500).send('server error'); // basic error return
+      }
+  
+      if (!row) return res.status(404).send('user not found');
+      
+      // theme to background file mapping	
+      const themeFileMap = {
         'purple-cybercore': 'cybercore.png',
         'vaporwave': 'vaporwave.jpg',
         'frutiger-aero': 'aero.png',
-        'ethereal-gothic': 'gothic.png' // optional default for the ethereal gothic one
-    };
-    
-    const bgFile = themeFileMap[row?.theme] || 'cybercore.png'; // fallback to cybercore  
-
-    res.render('profile', {
-        username: uname,
-        alias: row?.alias || 'anonymous',
-        theme: row?.theme || 'purple-cybercore',
-        description: row?.description || '',
-        avatar: row?.avatarPath || '/lain.jpg',
-        imageList: row?.imageList ? JSON.parse(row.imageList) : [],
+        'ethereal-gothic': 'gothic.png'
+      };
+  
+      const bgFile = themeFileMap[row?.theme] || 'cybercore.png';
+  
+      res.render('profile', {
+        username: targetUser,
+        alias: row.alias || 'anonymous',
+        theme: row.theme || 'purple-cybercore',
+        description: row.description || '',
+        avatar: row.avatarPath || '/lain.jpg',
+        imageList: row.imageList ? JSON.parse(row.imageList) : [],
         bgImage: bgFile
-      });      
+      });
+    });
   });
-});
+
+// new route: view someone else's profile by username
+app.get('/user/:username', (req, res) => {
+    const targetUser = req.params.username;
+  
+    db.get('SELECT * FROM user_settings WHERE username = ?', [targetUser], (err, row) => {
+      if (err || !row) {
+        return res.status(404).send('user not found');
+      }
+  
+      const themeFileMap = {
+        'purple-cybercore': 'cybercore.png',
+        'vaporwave': 'vaporwave.jpg',
+        'frutiger-aero': 'aero.png',
+        'ethereal-gothic': 'gothic.png'
+      };
+  
+      const bgFile = themeFileMap[row.theme] || 'cybercore.png';
+  
+      res.render('profile', {
+        username: targetUser,
+        alias: row.alias || 'anonymous',
+        theme: row.theme || 'purple-cybercore',
+        description: row.description || '',
+        avatar: row.avatarPath || '/lain.jpg',
+        imageList: row.imageList ? JSON.parse(row.imageList) : [],
+        bgImage: bgFile
+      });
+    });
+  });
 
 // === REGISTRATION ===
 app.post('/register', async (req, res) => {
@@ -482,6 +522,7 @@ io.on('connection', (socket) => {
 
       io.to(data.room).emit('message', {
         username: data.username,
+        alias: data.alias,
         message: data.message
       });
     });

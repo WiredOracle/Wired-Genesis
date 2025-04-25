@@ -94,7 +94,7 @@
     function checkKey() {
       const key = document.getElementById('docKey').value;
       if (key !== '1337wiredspace1337') {
-        window.location.href = '/login-error';
+        alert("Incorrect access key. Please try again.")
         return false; // don't submit
       }
       return true;
