@@ -1,10 +1,8 @@
 ================================
 WIRED GENESIS — README DOCUMENT
 ================================
-Author: Dion Berish
 Candidate Number: 4038
 Project Title: Wired Genesis - An esoteric Library & Chatroom
-Submission: NEA Project - Computer Science
 Platform: Node.js + Express + SQLite
 Theme: Techno-esotericism with Minimalist Stylization | Real-time Chat | A Hub for Research and Knowledge
 
@@ -18,16 +16,26 @@ Wired Genesis is a live web-based chat room and esoteric-themed library that is 
 The project's purpose is to facilitate knowledge retention, foster meaningful discussion, and serve as an ongoing site of new research and cross-referencing in esoteric but ever-evolving topics, ideas which might otherwise be lost to history. It aims to serve as a living archive, a reservoir of information, and a clearinghouse for the uncovering of higher truths through association and intellectual exploration. Not just affecting the formation of research and memetic wisdom, but also reflecting back on what was once observed in a cursory manner, and analyzing it in more depth, investigating and securitizing the nuances of the phenomenological and metaphysical framework of information, seeing it in a non-linear fashion by observing past and future in tandem, perhaps of another realm, a retro futuristic representation of the future, which is visualized in artwork and aesthetic conceptions of a given era such as Vaporwave, Y2K and Frutiger Aero.
 
 -------------------------------------
+INSTALLATION PROCESS
+-------------------------------------
+**Download or Clone this Repo**
+> bash git clone https://github.com/WiredOracle/wired-genesis.git
+> cd wired-genesis
+> npm install
+
+Run using:
+node app.js
+
+Open the browser:
+http://localhost:3000/register
+
+-------------------------------------
 SOFTWARE REQUIREMENTS:
 -------------------------------------
 - Node.js (v18 or later recommended)
 - npm (Node Package Manager)
 - SQLite3 (preinstalled or part of the OS)
 - A modern web browser (e.g., Chrome, Firefox)
-
-**Download or Clone this Repo**
-bash git clone https://github.com/WiredOracle/wired-genesis.git
-cd wired-genesis
 
 -------------------------------------
 DEPENDENCIES:
@@ -105,6 +113,8 @@ ADDITIONAL NOTES:
 - Background themes are automatically applied on the Profile page based on the theme selected by the user in Settings.
 - User data and pictures are stored across sessions with SQLite.
 - UI includes monospace fonts and dark-mode cyber-inspired appearance.
+- Encyclopedia webpage is not ready yet, however be wary that this is not entirely completed within my standards, but enough to be published. 
+I can definitely adapt more tweaks. I'll add it soon but it isn't the primary core of the website anyways, so it's not a major sacrifice.
 
 ==============================
    END OF README DOCUMENT
