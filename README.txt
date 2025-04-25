@@ -1,7 +1,6 @@
 ================================
 WIRED GENESIS — README DOCUMENT
 ================================
-Author: Dion Berish
 Candidate Number: 4038
 Project Title: Wired Genesis - An esoteric Library & Chatroom
 Submission: NEA Project - Computer Science
@@ -25,9 +24,20 @@ SOFTWARE REQUIREMENTS:
 - SQLite3 (preinstalled or part of the OS)
 - A modern web browser (e.g., Chrome, Firefox)
 
+
+-------------------------------------
+INSTALLATION PROCESS
+-------------------------------------
 **Download or Clone this Repo**
-bash git clone https://github.com/WiredOracle/wired-genesis.git
-cd wired-genesis
+> bash git clone https://github.com/WiredOracle/wired-genesis.git
+> cd wired-genesis
+> npm install
+
+Run using:
+node app.js
+
+Open the browser:
+http://localhost:3000
 
 -------------------------------------
 DEPENDENCIES:
