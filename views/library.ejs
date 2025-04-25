@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/png" href="/coplandOS.png"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Library - Wired Genesis</title>
+  <link rel="stylesheet" href="/chatroom.css" />
+  <link rel="stylesheet" href="library.css">
+ <audio id="bgMusic" src="audio/lain-ost.mp3" autoplay loop></audio>
+ <audio id="bgMusic" src="audio/macintosh-whisper-library.mp3" autoplay></audio>
+</head>
+<body>
+  <!-- this is the nav bar, it's consistent across pages -->
+  <nav class="topnav">
+    <a href="#" class="active">Library</a>
+    <a href="/chatroom">Chatroom</a>
+    <a href="/encyclopedia">Encyclopedia</a>
+    <a href="/profile">User Profile</a>
+    <a href="/settings">Settings ⚙️</a>
+  </nav>
+
+  <main class="library-container">
+    <!-- title up top -->
+    <h1>Library</h1>
+    <!-- serial experiments lain quote because of course -->
+    <p class="quote">"If you're not remembered, then you never existed"</p>
+
+    <!-- this is the search bar -->
+    <form method="GET" action="/library" class="search-section" id="searchForm">
+      <input type="text" name="q" placeholder="Search" value="<%= query || '' %>">
+      <button class="search-btn">🔍</button>
+    </form>    
+
+    <!-- the table that holds uploaded files info -->
+    <table class="library-table">
+      <thead>
+        <tr>
+          <th>Title:</th>
+          <th>File size:</th>
+          <th>Uploaded on:</th>
+          <th>Written by:</th>
+          <th>Uploaded by:</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="file-list">
+        <% documents.forEach(doc => { %>
+          <tr>
+            <td><%= doc.title %></td>
+            <td><%= doc.file_size %></td>
+            <td><%= doc.upload_date %></td>
+            <td><%= doc.author %></td>
+            <td><%= doc.uploaded_by %></td>
+            <td><a href="<%= doc.file_path %>" download>Download</a></td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+
+    <!-- upload trigger button -->
+    <button onclick="document.getElementById('uploadModal').style.display='block'">Upload</button>
+
+    <!-- modal form for uploads -->
+    <div id="uploadModal" class="modal">
+      <form method="POST" enctype="multipart/form-data" action="/upload-document" onsubmit="return checkKey();">
+        <div class="modal-content">
+          <!-- user enters document title -->
+          <label for="docTitle">Title of Document:</label>
+          <input type="text" name="docTitle" required>
+
+          <!-- author field -->
+          <label for="docAuthor">Written by:</label>
+          <input type="text" name="docAuthor" required>
+
+          <!-- secret key input -->
+          <label for="docKey">Access Key:</label>
+          <input type="password" name="accessKey" id="docKey" required>
+
+          <!-- file chooser: now only accepts .pdf and .doc/.docx -->
+          <input type="file" name="docFile" accept=".pdf,.doc,.docx,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" required>
+
+          <!-- submit the upload -->
+          <input type="submit" value="Submit">
+        </div>
+      </form>
+      <!-- cancel -->
+      <button onclick="document.getElementById('uploadModal').style.display='none'">Go back</button>
+    </div>
+  </main>
+
+  <script>
+    // just a little key check before submission. if key wrong, redirect to login-error
+    function checkKey() {
+      const key = document.getElementById('docKey').value;
+      if (key !== '1337wiredspace1337') {
+        window.location.href = '/login-error';
+        return false; // don't submit
+      }
+      return true;
+    }
+
+  // this grabs the search form and stops it from doing a full reload
+  document.getElementById('searchForm').addEventListener('submit', async function(e) {
+    e.preventDefault(); // stop the default reload
+    const query = this.querySelector('input[name="q"]').value;
+
+    // fetch new results from server
+    const res = await fetch(`/library?q=${encodeURIComponent(query)}`);
+    const html = await res.text();
+
+    // use DOMParser to extract only the table rows and replace them
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, 'text/html');
+    const newRows = doc.querySelector('#file-list').innerHTML;
+
+    // inject results without reloading page or audio
+    document.getElementById('file-list').innerHTML = newRows;
+  });
+    
+  </script>
+</body>
+</html>

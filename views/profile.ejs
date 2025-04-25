@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="/coplandOS.png"> 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>User Profile - Wired Genesis</title>
+  <!-- stylesheet shared across chatroom and profile, handles overall theming -->
+  <link rel="stylesheet" href="/chatroom.css" />
+
+  <style>
+    /* basic setup for body, sets black bg and dynamic background image depending on theme chosen */
+    body {
+      background-color: black;
+      background-image: url('/backgrounds/<%= bgImage %>'); /* custom theme bg */
+      background-size: cover;
+      background-position: center;
+      color: white;
+      font-family: monospace;
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    /* top navigation bar */
+    nav ul.topnav {
+      list-style: none;
+      display: flex;
+      gap: 2rem; /* spacing between nav items */
+      padding: 1rem;
+      margin: 0;
+      background: #000000aa; /* semi-transparent black */
+      border-bottom: 2px solid #222;
+      justify-content: center; /* center nav items */
+    }
+
+    /* links inside nav */
+    nav ul.topnav li a {
+      color: cyan;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    /* highlights the current page (User Profile) */
+    nav ul.topnav li a.active {
+      border-bottom: 2px solid cyan;
+    }
+
+    /* container box that wraps everything to keep it centered and separate from background */
+    .profile-container {
+      max-width: 960px;
+      margin: 2rem auto;
+      background-color: rgba(0, 0, 0, 0.8); /* black with opacity */
+      border: 2px solid #003366; /* dark blue border */
+      padding: 2rem;
+    }
+
+    /* layout for profile page content */
+    .profile-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: flex-start; /* makes sidebar and gallery align at the top */
+      justify-content: center;
+    }
+
+    /* user info card on the left */
+    .profile-card {
+      border: 1px solid #444;
+      padding: 1rem;
+      background-color: #111; /* very dark gray bg */
+      width: 250px;
+    }
+
+    /* avatar display */
+    .profile-card img {
+      width: 100%;
+      object-fit: cover; /* make sure it doesn’t distort */
+      border: 1px solid #666;
+      margin-bottom: 1rem;
+    }
+
+    /* individual info lines like USER, Alias */
+    .profile-details span {
+      color: cyan;
+      display: block;
+      font-weight: bold;
+      margin-top: 0.5rem;
+    }
+
+    /* responsive image grid for uploaded GIFs and images */
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); /* flexible layout */
+      gap: 1rem;
+      align-items: center;
+    }
+
+    /* each uploaded image in the gallery */
+    .gallery img {
+      width: 100%;
+      object-fit: cover;
+      border: 1px solid #333;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- topnav bar links to all main pages -->
+  <nav>
+    <ul class="topnav">
+      <li><a href="/library">Library</a></li>
+      <li><a href="/chatroom">Chatroom</a></li>
+      <li><a href="/encyclopedia">Encyclopedia</a></li>
+      <li><a href="/profile" class="active">User Profile</a></li> <!-- this one’s active -->
+      <li><a href="/settings">Settings</a></li>
+    </ul>
+  </nav>
+
+  <!-- black box container for profile and gallery -->
+  <div class="profile-container">
+    <main class="profile-wrapper">
+      <!-- user information section -->
+      <div class="profile-card">
+        <!-- user avatar shown up top -->
+        <img src="<%= avatar %>" alt="avatar" />
+        <div class="profile-details">
+          <!-- this is the username saved at registration -->
+          <span>USER: <%= username %></span>
+          <!-- display name/alias shown instead of username -->
+          <span>Alias: <%= alias %></span>
+          <!-- custom user-written description -->
+          <span>Description:</span>
+          <p><%= description %></p>
+        </div>
+      </div>
+
+      <!-- right section, displays uploaded user media -->
+      <section style="flex: 1">
+        <h2>GIFs/images:</h2>
+        <div class="gallery">
+          <% imageList.forEach(img => { %>
+            <!-- loops through imageList array, rendering each one -->
+            <img src="/uploads/<%= img %>" alt="user image" />
+          <% }) %>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
