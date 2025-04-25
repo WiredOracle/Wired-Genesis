@@ -17,15 +17,6 @@ Wired Genesis is a live web-based chat room and esoteric-themed library that is 
 The project's purpose is to facilitate knowledge retention, foster meaningful discussion, and serve as an ongoing site of new research and cross-referencing in esoteric but ever-evolving topics, ideas which might otherwise be lost to history. It aims to serve as a living archive, a reservoir of information, and a clearinghouse for the uncovering of higher truths through association and intellectual exploration. Not just affecting the formation of research and memetic wisdom, but also reflecting back on what was once observed in a cursory manner, and analyzing it in more depth, investigating and securitizing the nuances of the phenomenological and metaphysical framework of information, seeing it in a non-linear fashion by observing past and future in tandem, perhaps of another realm, a retro futuristic representation of the future, which is visualized in artwork and aesthetic conceptions of a given era such as Vaporwave, Y2K and Frutiger Aero.
 
 -------------------------------------
-SOFTWARE REQUIREMENTS:
--------------------------------------
-- Node.js (v18 or later recommended)
-- npm (Node Package Manager)
-- SQLite3 (preinstalled or part of the OS)
-- A modern web browser (e.g., Chrome, Firefox)
-
-
--------------------------------------
 INSTALLATION PROCESS
 -------------------------------------
 **Download or Clone this Repo**
@@ -38,6 +29,14 @@ node app.js
 
 Open the browser:
 http://localhost:3000
+
+-------------------------------------
+SOFTWARE REQUIREMENTS:
+-------------------------------------
+- Node.js (v18 or later recommended)
+- npm (Node Package Manager)
+- SQLite3 (preinstalled or part of the OS)
+- A modern web browser (e.g., Chrome, Firefox)
 
 -------------------------------------
 DEPENDENCIES:
