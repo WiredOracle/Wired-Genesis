@@ -61,7 +61,7 @@ const roomUsers = {
 // === ROUTES ===
 
 // serves the plain old register page
-app.get('/register', (req, res) => {
+app.get(['/', '/register'], (req, res) => {
   res.sendFile(path.join(__dirname, 'views', 'register.html'));
 });
 
@@ -224,7 +224,7 @@ app.get('/settings', (req, res) => {
       username: uname,
       alias: row?.alias || 'anonymous',
       theme: row?.theme || 'purple-cybercore',
-      description: row?.description || 'No matter where you go, everybody\'s connected',
+      description: row?.description || 'No matter where you are, everyone is always connected.',
       directory: row?.directory || '/home/user/downloads',
       avatar: row?.avatarPath || '/lain.jpg',
       imageList: row?.imageList ? JSON.parse(row.imageList) : []
@@ -281,11 +281,13 @@ app.get('/profile', (req, res) => {
         'purple-cybercore': 'cybercore.png',
         'vaporwave': 'vaporwave.jpg',
         'frutiger-aero': 'aero.png',
-        'ethereal-gothic': 'gothic.png'
+        'ethereal-gothic': 'ethereal-gothic.jpg'
       };
   
+      // if no theme matched, fallback to cybercore
       const bgFile = themeFileMap[row?.theme] || 'cybercore.png';
   
+      // render profile.ejs with all thevalues retreived from the DB
       res.render('profile', {
         username: targetUser,
         alias: row.alias || 'anonymous',
@@ -300,33 +302,40 @@ app.get('/profile', (req, res) => {
 
 // new route: view someone else's profile by username
 app.get('/user/:username', (req, res) => {
+    // grab the username part of the URL, like /user/tsuki -> tsuki
     const targetUser = req.params.username;
   
+    // look up this user in the database — pulling all their saved settings
     db.get('SELECT * FROM user_settings WHERE username = ?', [targetUser], (err, row) => {
+      // if db call errors or no user with that name exists
       if (err || !row) {
-        return res.status(404).send('user not found');
+        return res.status(404).send('user not found'); // fail early if something is wrong
       }
   
+      // map each available theme option to the background image it should use
       const themeFileMap = {
         'purple-cybercore': 'cybercore.png',
         'vaporwave': 'vaporwave.jpg',
         'frutiger-aero': 'aero.png',
-        'ethereal-gothic': 'gothic.png'
+        'ethereal-gothic': 'ethereal-gothic.jpg'
       };
   
+      // fallback to default background if somehow the user's theme is missing
       const bgFile = themeFileMap[row.theme] || 'cybercore.png';
   
+      // this sends all the user's profile info into the EJS view for rendering
       res.render('profile', {
-        username: targetUser,
-        alias: row.alias || 'anonymous',
-        theme: row.theme || 'purple-cybercore',
-        description: row.description || '',
-        avatar: row.avatarPath || '/lain.jpg',
-        imageList: row.imageList ? JSON.parse(row.imageList) : [],
-        bgImage: bgFile
+        username: targetUser,                                   
+        alias: row.alias || 'anonymous',                       
+        theme: row.theme || 'purple-cybercore',              
+        description: row.description || '',               
+        avatar: row.avatarPath || '/lain.jpg',                  
+        imageList: row.imageList ? JSON.parse(row.imageList) : [], 
+        bgImage: bgFile                                          
       });
     });
-  });
+});
+
 
 // === REGISTRATION ===
 app.post('/register', async (req, res) => {
@@ -549,6 +558,10 @@ io.on('connection', (socket) => {
       }
     });
 });
+
+app.use(function (r, res) {
+    res.status(404).sendFile(path.join(__dirname, 'public', 'login-error.html'));
+  })
 
 // === BOOT THE THING ===
 const PORT = process.env.PORT || 3000;

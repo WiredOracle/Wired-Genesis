@@ -26,7 +26,3 @@ db.serialize(() => {
 });
 
 db.close();
-
-
-
-

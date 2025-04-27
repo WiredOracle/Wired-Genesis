@@ -7,8 +7,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>chatroom - <%= room %></title>
   <link rel="stylesheet" href="/chatroom-room.css" />
-  <audio id="bgMusic" src="audio/ballad-of-albatross.mp3" autoplay loop></audio>
+  <!-- <audio id="bgMusic" src="audio/ballad-of-albatross.mp3" autoplay loop></audio> -->
   <!-- may or may not include this, not quite sure. --> 
+  <!-- <audio id="bgMusic" src="audio/chatroom.mp3" autoplay loop></audio> -->
 </head>
 <body>
   <header>
@@ -36,7 +37,7 @@
 
       <!-- log of messages -->
       <div class="chat-log" id="chatLog">
-        <p>"No matter where you go, everyone's connected" ~ Lain Iwakura</p>
+        <p>"No matter where you are, everyone is always connected." ~ Lain Iwakura</p>
       </div>
 
       <!-- input box and send button -->
@@ -94,9 +95,12 @@
     socket.on("roomUsers", ({ users }) => {
       userCountEl.textContent = users.length;
       userListEl.innerHTML = "";
+      // loop through all the usernames passed to us from the server
       users.forEach(u => {
         const li = document.createElement("li");
+        // this builds a clickable link using the username to load their profile page
         li.innerHTML = `<a href="/profile?user=${encodeURIComponent(u)}">${u}</a>`;
+        // attach this new item to the visible list in the sidebar
         userListEl.appendChild(li);
       });
     });
