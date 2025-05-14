@@ -19,7 +19,7 @@ The project's purpose is to facilitate knowledge retention, foster meaningful di
 INSTALLATION PROCESS
 -------------------------------------
 **Download or Clone this Repo**
-> bash git clone https://github.com/WiredOracle/wired-genesis.git
+> bash git clone https://github.com/WiredOracle/wired-genesis.git (or just click download ZIP on GitHub)
 > cd wired-genesis
 > npm install
 
@@ -114,7 +114,7 @@ ADDITIONAL NOTES:
 - User data and pictures are stored across sessions with SQLite.
 - UI includes monospace fonts and dark-mode cyber-inspired appearance.
 - Encyclopedia webpage is not ready yet, however be wary that this is not entirely completed within my standards, but enough to be published. 
-I can definitely adapt more tweaks. I'll add it soon but it isn't the primary core of the website anyways, so it's not a major sacrifice.
+- I can definitely adapt more tweaks. I'll add it soon but it isn't the primary core of the website anyways, so it's not a major sacrifice.
 
 ==============================
    END OF README DOCUMENT
