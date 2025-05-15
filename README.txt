@@ -9,7 +9,7 @@ Theme: Techno-esotericism with Minimalist Stylization | Real-time Chat | A Hub f
 -------------------------------------
 WHAT THIS PROJECT IS (THE ESSENCE):
 -------------------------------------
-An esoteric FOSS Library & Chatroom exploring cyber-esotericism and the mythic overlap between code, philosophy, and esotericism.
+An esoteric FOSS Library & Chatroom exploring cyber-esotericism and the mythic overlap between the cyberspace, philosophy, literature, divination and esotericism.
 
 Wired Genesis is a live web-based chat room and esoteric-themed library that is open-source in which users can communicate, customize their profiles, and upload custom content and share educational PDF documents and other materials which can be used to be of use when examining culture, information and research. Every account has a profile page with custom display name, description, visual theme, and uploaded image support. The chatroom also uses socket.io to facilitate the real-time exchange of messages between individuals. If ever, you lost the feeling that accessing a chatroom was tantamount to entering an abandoned cyber mall that was once common in 2000s software, this piece of software shall be capable of conveying that feeling of loss afresh.
 
@@ -27,7 +27,7 @@ Run using:
 node app.js
 
 Open the browser:
-http://localhost:3000/register
+http://localhost:3000/
 
 -------------------------------------
 SOFTWARE REQUIREMENTS:
@@ -69,8 +69,6 @@ USER INFO FOR TESTING:
 Test Account:
 - Username: lain
 - Password: system
-
-You may also create a new account by going to `http://localhost:3000/register`.
 
 -------------------------------------
 HOW TO USE / CONTROLS:
